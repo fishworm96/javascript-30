@@ -1,19 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>HTML5 Canvas</title>
 </head>
-<body>
-<canvas id="draw" width="800" height="800"></canvas>
-<script>
-</script>
 
-<style>
-  html, body {
-    margin: 0;
-  }
-</style>
+<body>
+  <canvas id="draw" width="800" height="800"></canvas>
+  <script>
+    const canvas = document.querySelector('#draw')
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    let ctx = canvas.getContext('2d')
+    ctx.strokeStyle = 'red'
+    ctx.lineJoin = 'round'
+    ctx.lineCap = 'round'
+    ctx.lineWidth = 50
+
+    let control = false
+    let originY = 0
+    let originX = 0
+    let linecontrol = true
+    let hue = 0
+
+    function canvasmove(e) {
+      if (!control) return;
+      ctx.beginPath()
+      ctx.moveTo(originX, originY)
+      ctx.lineTo(e.offsetX, e.offsetY)
+      ctx.stroke(),
+      [originX, originY] = [e.offsetX, e.offsetY]
+      ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`
+
+      if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+        linecontrol = !linecontrol
+      }
+
+      if(linecontrol) {
+        ctx.lineWidth++
+      }else {
+        ctx.lineWidth--
+      }
+      hue++
+      if(hue >= 359) {
+        hue = 0
+      }
+    }
+
+    canvas.addEventListener('mousemove', canvasmove)
+    canvas.addEventListener('mousedown', (e) => { 
+      control = true,
+      [originX, originY] = [e.offsetX, e.offsetY]
+    })
+    canvas.addEventListener('mouseup', () => control = false)
+    canvas.addEventListener('mouseout', () => control = false)
+
+  </script>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
+  </style>
 
 </body>
+
 </html>

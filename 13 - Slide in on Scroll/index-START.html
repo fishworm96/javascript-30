@@ -58,6 +58,29 @@
       };
     }
 
+    const images = document.querySelectorAll('.slide-in')
+
+    
+      function checkSlid() {
+        images.forEach(image => {
+
+          const scrollHeight = window.scrollY + window.innerHeight
+          const imgscrollTop = image.offsetTop + (image.height / 2)
+          const imgBottom = image.offsetTop + image.height
+
+        const isHalfShow = scrollHeight > imgscrollTop
+        const isNotScrollPast = window.scrollY < imgBottom
+        if(isHalfShow && isNotScrollPast) {
+          image.classList.add('active')
+        } else {
+          image.classList.remove('active')
+        }
+      
+    })
+  }
+
+  window.addEventListener('scroll', checkSlid)
+
   </script>
 
   <style>

@@ -7,6 +7,16 @@
 </head>
 <body>
 <script>
+
+  const secretCode = 'arvin'
+  const pressed = []
+  window.addEventListener('keyup', (e) => {
+    pressed.push(e.key)
+    if(pressed.join('').includes(secretCode)) {
+      cornify_add()
+    }
+  })
+
 </script>
 </body>
 </html>

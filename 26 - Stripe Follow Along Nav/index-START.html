@@ -220,6 +220,38 @@
 </style>
 
 <script>
+
+  const navLis = document.querySelectorAll('.cool > li')
+  const backgournd = document.querySelector('.dropdownBackground')
+  const nav = document.querySelector('.top')
+
+  function handleEnter() {
+    backgournd.classList.add('open')
+    this.classList.add('trigger-enter')
+    setTimeout(() => {this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active')}, 150)
+    const dropdown = this.querySelector('.dropdown').getBoundingClientRect()
+    const navRect = nav.getBoundingClientRect()
+    const dropdownStyle= {
+      width: dropdown.width,
+      height: dropdown.height,
+      left: dropdown.left - navRect.left,
+      top: dropdown.top - navRect.top
+    }
+    backgournd.style.setProperty('width', `${dropdownStyle.width}px`)
+    backgournd.style.setProperty('height', `${dropdownStyle.height}px`)
+    backgournd.style.setProperty('transform', `translate(${dropdownStyle.left}px,${dropdownStyle.top}px)`)
+  }
+  function handleLeave() {
+    this.classList.remove('trigger-enter', 'trigger-enter-active')
+    backgournd.classList.remove('open')
+
+  }
+
+
+
+  navLis.forEach(li => li.addEventListener('mouseenter', handleEnter))
+  navLis.forEach(li => li.addEventListener('mouseleave', handleLeave))
+
 </script>
 
 </body>

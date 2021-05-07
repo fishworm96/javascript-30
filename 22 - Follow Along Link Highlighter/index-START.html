@@ -27,6 +27,20 @@
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    const trigger = document.querySelectorAll('a')
+    const heightlight = document.createElement('span')
+    heightlight.classList.add('highlight')
+    document.body.appendChild(heightlight)
+
+    function handletrigger() {
+      const e = this.getBoundingClientRect()
+      heightlight.style.width = e.width + 'px'
+      heightlight.style.height = e.height + 'px'
+      heightlight.style.transform = `translate(${e.x + window.scrollX}px,${e.y + window.scrollY}px)`
+    }
+
+    trigger.forEach(a => a.addEventListener('mouseenter', handletrigger))
+
   </script>
 </body>
 </html>
